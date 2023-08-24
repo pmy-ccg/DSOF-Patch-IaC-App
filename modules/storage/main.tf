@@ -7,6 +7,9 @@ resource "aws_s3_bucket_public_access_block" "insecure-bucket" {
    block_public_policy     = true
    ignore_public_acls      = true
    restrict_public_buckets = true
+   versioning.enabled      = true
+   logging                 = true
+   versioning.mfa_delete   = true
  }
 
 resource "aws_ebs_volume" "example" {
