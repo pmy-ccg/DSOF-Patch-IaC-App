@@ -21,7 +21,12 @@ resource "aws_s3_bucket_versioning" "insecure-bucket-versioning" {
   bucket = aws_s3_bucket.insecure-bucket.id
 
   enabled = true
-  mfa_delete = true
+}
+
+resource "aws_s3_bucket_mfa_delete" "insecure-bucket-mfa-delete" {
+  bucket = aws_s3_bucket.insecure-bucket.id
+
+  status = "Enabled"
 }
 
 resource "aws_ebs_volume" "example" {
