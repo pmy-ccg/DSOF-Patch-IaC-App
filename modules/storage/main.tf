@@ -1,5 +1,10 @@
 resource "aws_s3_bucket" "insecure-bucket" {
   bucket = "insecure-bucket"
+
+  versioning {
+    enabled = true
+    mfa_delete = true
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "insecure-bucket-block" {
@@ -15,18 +20,6 @@ resource "aws_s3_bucket_logging" "insecure-bucket-logging" {
   bucket = aws_s3_bucket.insecure-bucket.id
 
   target_bucket = "insecure-bucket"
-}
-
-resource "aws_s3_bucket_versioning" "insecure-bucket-versioning" {
-  bucket = aws_s3_bucket.insecure-bucket.id
-
-  enabled = true
-}
-
-resource "aws_s3_bucket_mfa_delete" "insecure-bucket-mfa-delete" {
-  bucket = aws_s3_bucket.insecure-bucket.id
-
-  status = "Enabled"
 }
 
 resource "aws_ebs_volume" "example" {
